@@ -1,0 +1,7 @@
+Diagonalizing symmetric matrices
+--------------------------------
+
+dim: 100	 	 diagonalization time: 1.25493 seconds
+dim: 250	 	 diagonalization time: 16.0958 seconds
+dim: 500	 	 diagonalization time: 117.219 seconds
+dim: 1000	 	 diagonalization time: 858.328 seconds
