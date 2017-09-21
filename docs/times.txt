@@ -1,7 +1,19 @@
-Diagonalizing symmetric matrices
---------------------------------
+Diagonalizing random matrices
+-----------------------------
+Number of cores that eigen will use: 1
 
 dim: 100	 	 diagonalization time: 1.25493 seconds
 dim: 250	 	 diagonalization time: 16.0958 seconds
 dim: 500	 	 diagonalization time: 117.219 seconds
 dim: 1000	 	 diagonalization time: 858.328 seconds
+
+
+
+Diagonalizing symmetric matrices
+--------------------------------
+Number of cores that eigen will use: 1
+
+dim: 100	 diagonalization time: 0.056362 seconds
+dim: 250	 diagonalization time: 0.671526 seconds
+dim: 500	 diagonalization time: 4.80817 seconds
+dim: 1000	 diagonalization time: 35.6735 seconds

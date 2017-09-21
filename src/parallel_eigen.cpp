@@ -1,7 +1,25 @@
 #include <Eigen/Dense>
 #include <iostream>
-
 #include <ctime>
+
+
+void random_mult(std::vector<unsigned>& dims) {
+    std::cout << "Multiplying random matrices" << std::endl;
+    std::cout << "---------------------------" << std::endl;
+    std::cout << "Number of cores that eigen will use: " << Eigen::nbThreads() << std::endl  << std::endl;
+
+    for (const auto& dim : dims) {
+        const clock_t begin_time = clock();
+
+        Eigen::MatrixXd A = Eigen::MatrixXd::Random(dim, dim);
+        Eigen::MatrixXd B = Eigen::MatrixXd::Random(dim, dim);
+        A * B;
+
+        std::cout << "dim: "  << dim << "\t multiplication time: " << float( clock () - begin_time ) /  CLOCKS_PER_SEC << " seconds" << std::endl;
+    }
+
+
+}
 
 
 void random_diag(std::vector<unsigned>& dims) {
@@ -58,15 +76,15 @@ void parallel_random_diag(std::vector<unsigned>& dims, unsigned cores) {
 
 int main () {
 
-    std::vector<unsigned> dims = {100, 250, 500};
+#if defined(_OPENMP)
+    std::cout << "Number of processors available: " << omp_get_num_procs() << std::endl;
+    std::cout << "Maximum number of threads: " << omp_get_max_threads() << std::endl;
+#endif
 
-    // Random matrices
-    // random_diag(dims);
+    using namespace Eigen;
+    int n = 40000;
 
-    // Symmetric random matrices
-    symm_diag(dims);
+    MatrixXd D = MatrixXd::Random(n,n);
 
-    // Parallel random matrices
-    parallel_random_diag(dims, 2);
-    parallel_random_diag(dims, 2);
+    EigenSolver<MatrixXd> es (D);
 }

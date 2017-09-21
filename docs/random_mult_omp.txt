@@ -1,0 +1,26 @@
+Number of processors available: 8
+Maximum number of threads: 8
+
+
+Multiplying random matrices
+---------------------------
+Number of cores that eigen will use: 8
+
+dim: 100	 multiplication time: 0.001089 seconds
+dim: 250	 multiplication time: 0.004305 seconds
+dim: 500	 multiplication time: 0.016455 seconds
+dim: 1000	 multiplication time: 0.068845 seconds
+dim: 5000	 multiplication time: 1.65593 seconds
+
+
+
+
+Multiplying random matrices
+---------------------------
+Number of cores that eigen will use: 1
+
+dim: 100	 multiplication time: 0.000728 seconds
+dim: 250	 multiplication time: 0.004049 seconds
+dim: 500	 multiplication time: 0.015904 seconds
+dim: 1000	 multiplication time: 0.064294 seconds
+dim: 5000	 multiplication time: 1.66581 seconds
