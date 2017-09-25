@@ -32,7 +32,7 @@ With standard Eigen3, we get the following timings (in seconds):
     2500 : 547.119
 
 
-### -01 compiler flag
+### `-01` compiler flag
 Using the `-01` compiler flag, we expect faster results:
 
     50 : 0.000365
@@ -44,7 +44,7 @@ Using the `-01` compiler flag, we expect faster results:
     5000 : 261.308
 
 
-### -O2 compiler flag
+### `-O2` compiler flag
 Using the `-O2` compiler flag, we expect even faster results, but the differences seem to be negligible, and it seems that for large matrices, `-O1` is preferable:
 
     50 : 0.000383
@@ -56,7 +56,7 @@ Using the `-O2` compiler flag, we expect even faster results, but the difference
     5000 : 270.23
 
 
-### EIGEN_USE_MKL_ALL
+### `EIGEN_USE_MKL_ALL`
 Using the `#define EIGEN_USE_MKL_ALL` macro, we expect Eigen3 to be able to do everything in parallel. Here are the timings (without any optimization flags):
 
     50 : 0.057216
