@@ -11,7 +11,7 @@ Benchmark code and results for parallelizing the diagonalization of matrices usi
 
 The goal of this project is to find out some timings of full diagonalizations of large, symmetric matrices using the Eigen3 library, on my machine. Specifications:
  * MacBook Pro, mid 2015
- * Processor: 2,5 GHz Intel Core i7 (8 hyper-threaded cores, 256KB L2, 6 MB L3)
+ * Processor: 2,5 GHz Intel Core i7 (4 cores, 256KB L2, 6 MB L3)
  * 16 GB 1600 MHz DDR3
  * Intel Iris Pro 1536 MB VRAM
 
