@@ -1,90 +1,54 @@
-#include <Eigen/Dense>
 #include <iostream>
-#include <ctime>
+#include <chrono>
+
+#include <Eigen/Dense>
 
 
-void random_mult(std::vector<unsigned>& dims) {
-    std::cout << "Multiplying random matrices" << std::endl;
-    std::cout << "---------------------------" << std::endl;
-    std::cout << "Number of cores that eigen will use: " << Eigen::nbThreads() << std::endl  << std::endl;
+/** Check whether a given matrix is symmetric
+ */
+bool is_symmetric(Eigen::MatrixXd& A) {
+    return A.isApprox(A.transpose(), 1.0e-8);
+}
 
-    for (const auto& dim : dims) {
-        const clock_t begin_time = clock();
+/** Return a random symmetric matrix
+ */
+Eigen::MatrixXd random_symmetric_matrix(size_t dim) {
+    Eigen::MatrixXd A = Eigen::MatrixXd::Random(dim, dim);
+    Eigen::MatrixXd AT = A.transpose();
+    Eigen::MatrixXd S = A + AT;     // The sum of a matrix and its transpose is symmetric
 
-        Eigen::MatrixXd A = Eigen::MatrixXd::Random(dim, dim);
-        Eigen::MatrixXd B = Eigen::MatrixXd::Random(dim, dim);
-        A * B;
-
-        std::cout << "dim: "  << dim << "\t multiplication time: " << float( clock () - begin_time ) /  CLOCKS_PER_SEC << " seconds" << std::endl;
-    }
-
-
+    assert(is_symmetric(S));        // Double-check that S is symmetric
+    return S;
 }
 
 
-void random_diag(std::vector<unsigned>& dims) {
-    std::cout << "Diagonalizing random matrices" << std::endl;
-    std::cout << "-----------------------------" << std::endl;
-    std::cout << "Number of cores that eigen will use: " << Eigen::nbThreads() << std::endl  << std::endl;
 
-    for (const auto& dim : dims) {
-        const clock_t begin_time = clock();
 
-        Eigen::MatrixXd A = Eigen::MatrixXd::Random(dim, dim);
-        Eigen::EigenSolver<Eigen::MatrixXd> es (A);
+void time_diagonalization(std::vector<size_t> dims) {
+    for(const auto& dim : dims) {
+        // Prepare the random symmetric matrix
+        Eigen::MatrixXd A = random_symmetric_matrix(dim);
 
-        std::cout << "dim: "  << dim << "\t diagonalization time: " << float( clock () - begin_time ) /  CLOCKS_PER_SEC << " seconds" << std::endl;
+        // Time the diagonalization
+        auto start = std::chrono::high_resolution_clock::now();
+        Eigen::SelfAdjointEigenSolver<Eigen::MatrixXd> saes (A);
+        auto stop = std::chrono::high_resolution_clock::now();
+
+        // Process the chrono time and output
+        auto elapsed_time = stop - start;           // in nanoseconds
+        auto seconds = elapsed_time.count() / 1e9;  // in seconds
+        std::cout << dim << " : " << seconds << std::endl;
     }
 }
 
-
-void symm_diag(std::vector<unsigned>& dims) {
-    std::cout << "Diagonalizing symmetric matrices" << std::endl;
-    std::cout << "--------------------------------" << std::endl;
-    std::cout << "Number of cores that eigen will use: " << Eigen::nbThreads() << std::endl << std::endl;
-
-    for (const auto& dim : dims) {
-        const clock_t begin_time = clock();
-
-        Eigen::MatrixXd A = Eigen::MatrixXd::Random(dim, dim);
-        Eigen::MatrixXd AT = A.transpose();
-        Eigen::MatrixXd S = A + AT;
-
-        Eigen::SelfAdjointEigenSolver<Eigen::MatrixXd> saes (S);
-        std::cout << "dim: "  << dim << "\t diagonalization time: " << float( clock () - begin_time ) /  CLOCKS_PER_SEC << " seconds" << std::endl;
-    }
-}
-
-
-void parallel_random_diag(std::vector<unsigned>& dims, unsigned cores) {
-    Eigen::setNbThreads(cores);
-    std::cout << "Diagonalizing random matrices" << std::endl;
-    std::cout << "-----------------------------" << std::endl;
-    std::cout << "Number of cores that eigen will use: " << Eigen::nbThreads() << std::endl  << std::endl;
-
-    for (const auto& dim : dims) {
-        const clock_t begin_time = clock();
-
-        Eigen::MatrixXd A = Eigen::MatrixXd::Random(dim, dim);
-        Eigen::EigenSolver<Eigen::MatrixXd> es (A);
-
-        std::cout << "dim: "  << dim << "\t diagonalization time: " << float( clock () - begin_time ) /  CLOCKS_PER_SEC << " seconds" << std::endl;
-    }
-
-}
 
 
 int main () {
 
-#if defined(_OPENMP)
-    std::cout << "Number of processors available: " << omp_get_num_procs() << std::endl;
-    std::cout << "Maximum number of threads: " << omp_get_max_threads() << std::endl;
-#endif
+    std::vector<size_t> dims {50, 100, 250, 500, 1000, 2500, 5000, 10000};
 
-    using namespace Eigen;
-    int n = 40000;
+    time_diagonalization(dims);
 
-    MatrixXd D = MatrixXd::Random(n,n);
 
-    EigenSolver<MatrixXd> es (D);
+    return 0;
 }
