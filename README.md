@@ -4,7 +4,9 @@ Benchmark code and results for parallelizing the diagonalization of matrices usi
 
 
 ## Dependencies
-[![eigen3 Dependency](https://img.shields.io/badge/eigen-3+-blue.svg)](http://eigen.tuxfamily.org/index.php?title=Main_Page)
+[![Eigen3 Dependency](https://img.shields.io/badge/eigen-3+-blue.svg)](http://eigen.tuxfamily.org/index.php?title=Main_Page)
+[![MKL Dependency](https://img.shields.io/badge/MKL-2018-blue.svg)](https://software.intel.com/en-us/mkl)
+[![Compiler Dependency](https://img.shields.io/badge/GCC-4.9-blue.svg)](https://gcc.gnu.org/gcc-4.9/changes.html)
 
 
 ## Goal
