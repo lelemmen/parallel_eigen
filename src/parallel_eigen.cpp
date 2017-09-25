@@ -1,6 +1,7 @@
 #include <iostream>
 #include <chrono>
 
+#define EIGEN_USE_MKL_ALL   // enable MKL in Eigen3
 #include <Eigen/Dense>
 
 
