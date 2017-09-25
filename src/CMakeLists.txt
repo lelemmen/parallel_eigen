@@ -14,6 +14,9 @@ target_include_directories(parallel_eigen PRIVATE /opt/local/include/eigen3)
 # Use the -O2 compiler flag
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2")
 
+# Use the -O3 compiler flag
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
+
 # Use Intel MKL
 target_include_directories(parallel_eigen PRIVATE $ENV{MKL_ROOT}/include)
 # https://software.intel.com/en-us/articles/intel-mkl-link-line-advisor/

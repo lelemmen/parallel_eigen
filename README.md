@@ -55,6 +55,7 @@ Using the `-O2` compiler flag, we expect even faster results, but the difference
     2500 : 28.2351
     5000 : 270.23
 
+
 ### EIGEN_USE_MKL_ALL
 Using the `#define EIGEN_USE_MKL_ALL` macro, we expect Eigen3 to be able to do everything in parallel. Here are the timings (without any optimization flags):
 
@@ -67,3 +68,27 @@ Using the `#define EIGEN_USE_MKL_ALL` macro, we expect Eigen3 to be able to do e
     5000 : 18.4512
     10000 : 149.752
 
+
+### `EIGEN_USE_MKL_ALL` + `-O1`
+Eigen3+MKL, combined with the `-O1` flags isn't necessarily better:
+
+    50 : 0.010366
+    100 : 0.002427
+    250 : 0.009547
+    500 : 0.047157
+    1000 : 0.222608
+    2500 : 2.0173
+    5000 : 18.1276
+    10000 : 154.573
+
+### `EIGEN_USE_MKL_ALL` + `-O2`
+Let's take a look at Eigen3+MKL, with level 2 optimizations:
+
+    50 : 0.013983
+    100 : 0.002724
+    250 : 0.008272
+    500 : 0.048409
+    1000 : 0.1736
+    2500 : 2.04961
+    5000 : 17.6473
+    10000 : 151.066
