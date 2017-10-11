@@ -1,5 +1,6 @@
 #include <iostream>
 #include <chrono>
+#include <vector>
 
 #define EIGEN_USE_MKL_ALL   // enable MKL in Eigen3
 #include <Eigen/Dense>
@@ -21,7 +22,6 @@ Eigen::MatrixXd random_symmetric_matrix(size_t dim) {
     assert(is_symmetric(S));        // Double-check that S is symmetric
     return S;
 }
-
 
 
 
